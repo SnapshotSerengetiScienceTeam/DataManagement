@@ -1,0 +1,16 @@
+Rob Slotow put David Jachowski (an ecology prof at Clemson, interested in insectivores) in touch with Craig in June 2014:
+
+(says Rob) "I have liaised with Craig Packer, who is keen for you to take a lead role in analysis of the Serengeti Camera Trap (http://www.snapshotserengeti.org/). 
+The main questions we were interested in was to look at the insectivore specialists (aardvark, aardvolf, bat eared fox) relative to the balance of the community, especially the three jackal species which are present. 
+We could also look for cascade effects from other larger carnivores onto these focal species. 
+There is some other work going on, so we need to make sure that we are not overlapping.
+ 
+As a first step, Craig and I have agreed that you should formulate some research questions which you would pursue, 
+and we can bounce those around. If you need to know more about the data, Craig can provide details on that."
+
+In August 2014, Craig initiated an email conversation with me, Michael Anderson, Rob Slotow, and David Jachowski. 
+I provided David with consensus data on insectivores/small carnivores and the corresponding image set.
+
+In October, David returned a set of "gold standard" classifications made by his students on those images. 
+He is currently analyzing the insectivore data in an occupancy-modeling framework to look for pattenrs of partitioning.
+
