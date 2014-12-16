@@ -5,3 +5,11 @@ Patrick contacted Grant Miller at Zooniverse in March 2014, who then contacted A
 Ali and I exchanged a couple emails with Patrick in March and April. Colleagues are Alex Loos and Christian Weigel, also at Fraunhofer. Uwe Kuehhirt has been CCed on these emails as well. Alex wrote that they had previously worked on detection of Great Apes in real-world settings. They have had students, as well.
 
 Last contact April 3, though it looks like we dropped the ball on continuing the conversation with them.
+
+(from ali:) 
+
+This is actually the MICO team, who funds Grant Miller's position. They are interested in combining text, image, and video processing to do smarter analysis of content on the web.
+
+They are currently using Snapshot Serengeti images to try and automatically identify photos without animals. They also want to explore combining information from Talk comments and raw classifications to estimate what is in an image, and serve it up to certain users.
+
+Zooniverse has just hired a new developer on the MICO grant, starting in January, who will be working on the above.
