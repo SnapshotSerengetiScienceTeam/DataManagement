@@ -1,0 +1,7 @@
+12/15/2014
+
+Greg Hines is a data scientist at Zooniverse. He wrote an algorithm to take advantage of some users being better than others and beat our plurality algorithm. He is publishing/presenting his work at The Twenty-Seventh Conference on Innovative Applications of Artificial Intelligence (IAAI-15) in Austin, Texas January 27 - 29, 2015.
+
+Hines, G., Swanson A., Kosmala, M., Lintott, C. In Review. Aggregating User Input in Ecology Citizen Science Projects.
+
+On October 28, the paper was accepted for publication/presentation.

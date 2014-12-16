@@ -1,0 +1,9 @@
+12/15/2014
+
+Rogerio Feris contacted Margaret in Septemeber 2013 with an interest in the annotated dataset along with images for computer vision research. He and his collaborators are at IBM Watson and Rogerio is an adjunct at Columbia University. He wants to use the data for a grad-level class he teaches at Columbia called "Visual Recognition and Search." His collaborators are also at IBM and co-teach the class: Jun Wang and Liangliang Cao.
+
+Rogerio has an account at MSI with which he downloaded images. He ran the class in Spring 2014 with the data and images. Three student groups chose to use our data. Results here:
+http://rogerioferis.com/VisualRecognitionAndSearch2014/Projects.html
+(And PDFs here.)
+
+After the class, one student, Guangnan Ye, followed up with interest in continuting to work on deep learning applications with it. Last contact was October 2014.

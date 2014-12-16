@@ -1,0 +1,23 @@
+12/15/2014
+
+Jun Wang contacted Margaret in December 2013, interested in deep learning for classification in citizen science. He is a reasearch assistant professor at Syracuse University. He had already used our example images to do an initial test of his algorithms. He's interested in having humans and machines complement one another in doing citizen science tasks.
+
+I sent him links to the online images for the 4149 gold-standard captures (and the gold-standard classifications, too). And he worked with those.
+
+In January he reported that a real quick algorithm without any preprocessing (like finding animals in the photos) got 75% accuracy for the 14 most abundant species. 
+
+In February he gave some results for trying to differentiate among impala, Grant's gazelle and Tommies. 
+https://dl.dropboxusercontent.com/u/7037426/snapshot/desc.html
+He put boxes around the animals by hand and the algorithm did pretty well. (88%, which is better than the average single volunteer) His algorithm includes a confidence metric.
+
+He then asked for all the consensus plurality data and links to online images. Given in March.
+
+In September he got in touch again (CCing Kevin Crowston, also at Syracuse). He wants to make a game in which the computer and a volunteer work together to make good classifications. "We wanted to demo the game-based idea of combining the power of deep learning and human brain on our citizensort website. ... When we have collected sufficient gameplay data from our users, we plan to do a study to evaluate (1) if the game-based approach can motivate users to spend more time on image classification than the zooniverse approach; (2) if the game-based approach can effectively improve user's image classification skills. ... Since this evaluation involves comparison with the zooniverse approach, we wanted to collaborate with you to conduct some analysis of your data ... As a result of collaboration, we could co-author papers to report our findings."
+
+We agreed, said sounds good!
+
+Last communication Sept 11.
+
+
+
+
