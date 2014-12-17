@@ -5,3 +5,49 @@ Andrew Lipstein from Thomson-Reuters got in touch with Margaret in April about u
 I sent him a selection of day and night images with cheetahs, other spotted cats, and other animals in them. I sent links to the image URLS already online. In May they were downloading and processing our images. Collaborators are Maria Del Carmen Santa Cruz Roldan, Peter Keyngnaert and Jan Waerniers, all at TR.
 
 Last communication was May 23 when they were getting ready to launch the challenge.
+
+
+12/17/2014
+
+Andrew writes:
+
+Hello Snapshot Serengeti team,
+
+On behalf of the Spotted Cat Image Recognition Challenge team I would like thank you for providing additional images that helped make our innovation event a success.
+
+This challenge was one of our more popular this year generating 15k views, 2k likes and 276 comments all on our corporate intranet site our 55,000 employees use called The Hub. We weren't disappointed with solutions to the problem of identifying spotted cats from camera trap images. The Thomson Reuters employees really pushed their creativity to the limits submitting 11 solutions from all corners of our global organization.
+
+The top solutions were invited to give a presentation where the judges selected the winners:
+1.      Image recognition using Overfeat - by Thomas Vacek - Minnesota
+2.      Spotted Cat Solution Submission - by Reinaldo Yanez - Argentina
+3.      SpottedCatalyst by Georges Haddad/Shawn Kefauver - Lebanon/Spain tied with Cheetah Magic Finder by Siarhei Marozau - New York
+4.      Neural Classifier by Elton Ray - New York
+
+You can view the presentations via this Webex recording:
+https://tlr.webex.com/tlr/lsr.php?RCID=70c63b7bfee24d369239cc5769dce30b
+
+We have a team that Carmen Roldan (cc'd) is leading that will be working with ZSL on improving Thomas' solution which currently lacks a GUI and could be made easier to install. Despite those improvements Thomas' solution out-performed all others with an AUC of 0.9426 by combining a day/color and a night/gray classifier. Performance improves slightly more when images are "chained" i.e. when a series of images is grouped and scored based on the presence of a spotted cat in just one image. Thomas' solution can process 1,000 images per day on a laptop or 4,000 images per day on a desktop machine. This wasn’t the fastest but also not the slowest solution. The solution is written for Linux or Mac OSX.
+
+All of the solutions will be made available via BitBucket a open source code hosting site.
+
+Please contact Carmen for an invitation and directions to using the solutions.
+
+Again, thank you so much for donating your images to this worthy cause!
+
+Best regards,
+
+The Spotted Cat Image Recognition Challenge team
+
+-----
+
+And Carmen writes:
+
+I am creating the repositories (containers for the solution and source code) these days. I don't think the guys have yet put the solutions there. But it will be done shortly.
+
+We will use the issue management system of BitBucket to communicate tasks, request for new features and so on.
+
+I will send some invites soon, hopefully before the week is up.
+
+We also use a group in LinkedIn to communicate with external partners (namely ZSL and one of our solvers works, Shawn, now at the University)
+
+I will send you the invites for that as well.  The group in LinkedIn and BitBucket are called ChangeTribe.
