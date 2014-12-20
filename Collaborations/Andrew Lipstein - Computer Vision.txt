@@ -56,3 +56,23 @@ I will send you the invites for that as well.  The group in LinkedIn and BitBuck
 12/19/2014
 
 Carmen writes:
+
+Here is the link to the team where we will put the repositories with the solutions.
+
+I will include all winning solutions (some now and some after Xmas), but as Andrew mentioned we will be working to overhaul and make really user friendly and robust the one with the best AUC; That’s Thomas Vacek
+
+We will start as soon as possible. The guys right now work exclusively volunteering their own time. So it might take a while to have it all done.
+
+But we will work in Agile mode. Meaning in each iteration we will try to give you deployable quality (in plain something that you can use).
+
+The sooner you start using it, the sooner we will get feedback on what you need J
+
+
+https://bitbucket.org/changetribe
+
+If you just need to download with the link should be enough. The repositories are completely open, so nothing stops people from joining it. But if you have problems let me know 
+
+
+Ps. On agile method
+
+http://es.wikipedia.org/wiki/Scrum
