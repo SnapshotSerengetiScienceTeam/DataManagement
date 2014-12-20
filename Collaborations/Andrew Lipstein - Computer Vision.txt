@@ -26,7 +26,7 @@ The top solutions were invited to give a presentation where the judges selected 
 You can view the presentations via this Webex recording:
 https://tlr.webex.com/tlr/lsr.php?RCID=70c63b7bfee24d369239cc5769dce30b
 
-We have a team that Carmen Roldan (cc'd) is leading that will be working with ZSL on improving Thomas' solution which currently lacks a GUI and could be made easier to install. Despite those improvements Thomas' solution out-performed all others with an AUC of 0.9426 by combining a day/color and a night/gray classifier. Performance improves slightly more when images are "chained" i.e. when a series of images is grouped and scored based on the presence of a spotted cat in just one image. Thomas' solution can process 1,000 images per day on a laptop or 4,000 images per day on a desktop machine. This wasn’t the fastest but also not the slowest solution. The solution is written for Linux or Mac OSX.
+We have a team that Carmen Roldan (cc'd) is leading that will be working with ZSL on improving Thomas' solution which currently lacks a GUI and could be made easier to install. Despite those improvements Thomas' solution out-performed all others with an AUC of 0.9426 by combining a day/color and a night/gray classifier. Performance improves slightly more when images are "chained" i.e. when a series of images is grouped and scored based on the presence of a spotted cat in just one image. Thomas' solution can process 1,000 images per day on a laptop or 4,000 images per day on a desktop machine. This wasnâ€™t the fastest but also not the slowest solution. The solution is written for Linux or Mac OSX.
 
 All of the solutions will be made available via BitBucket a open source code hosting site.
 
@@ -51,3 +51,8 @@ I will send some invites soon, hopefully before the week is up.
 We also use a group in LinkedIn to communicate with external partners (namely ZSL and one of our solvers works, Shawn, now at the University)
 
 I will send you the invites for that as well.  The group in LinkedIn and BitBucket are called ChangeTribe.
+
+
+12/19/2014
+
+Carmen writes:
