@@ -1,0 +1,16 @@
+To backup the Snapshot Serengeti database from the MSI command line, type:
+
+mysqldump --host=mysql.msi.umn.edu --user=[username] --password=[password] packerc_snapshot_serengeti > [outfile]
+
+Make sure to replace [username] with your username, [password] with your mysql server passwrod, and [outfile] with a well-named output file.
+
+For output files, please use this format:
+packerc_snapshot_serengeti_[YYYY_MM_DD].sql
+
+For example:
+packerc_snapshot_serengeti_2015_01_02.sql
+
+Backup files should go in the directory /home/packerc/shared/metadata_db/backups/
+
+
+
