@@ -1,0 +1,7 @@
+Velibor Adzic and Hari Kalva (http://mlab.fau.edu/) contacted the Zooniverse to ask about using SS data in research on semi-automation of image analysis.
+
+They are interested to see if images can be identified by tracking physiological responses of users, specifically tracking EEG and eye movement.
+
+As of 14-Jan 2015 I've sent them the data descriptor. We think they are first going to try and idnetify whether images are empty.
+
+Stuart Lynn and I will organize sending data/images.
