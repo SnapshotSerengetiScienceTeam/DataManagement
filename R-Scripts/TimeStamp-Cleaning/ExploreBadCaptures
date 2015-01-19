@@ -1,0 +1,22 @@
+season <- 6
+
+badcap <- read.csv(paste("Data/Flagging2ndPass/S", season, "BadCaps.csv", sep = ""))
+
+ts <- "timez"
+dat <- read.csv(paste("Data/CleanedCaptures/S", season, "_cleaned.csv", sep = ""))
+dat$J <- julian(strptime(dat$timez, format = "%Y-%m-%d %H:%M:%S")) # ensure date is a DAT 
+dat$timestamp <- strptime(dat$timez, format = "%Y-%m-%d %H:%M:%S")
+
+# explore bad captures
+
+sr <- "P12_R1"
+cap <- 531
+
+
+r <- dat[dat$sr == sr,]
+
+
+#r[grep(pattern="IMAG0142",x=r$path),]
+
+r[r$capture %in% (cap-2):(cap+3),]
+summary(r)
