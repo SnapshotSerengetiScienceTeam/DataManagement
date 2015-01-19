@@ -1,0 +1,131 @@
+## The changes themselves are actually really easy, it's mostly subsetting the roll appropriately
+setwd(dir="/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
+
+
+## And are we feeding it Captures? ##
+# definitely going to need to loop through. Possible that there would be a more efficient apply approach, but this is so damn complex...
+# and I only have limited skills. And I can just let this run while I'm doing other stuff
+
+
+CleanCaps <- function(season){ 
+     ############################################################################ 
+     ########################## READ ACTION LIST ################################
+     ############################################################################
+     
+          actions <- read.csv(paste("ActionLists/S", season, "Actions.csv", sep = ""))
+          actions <- actions[order(actions$sr, actions$First.Last.All),]
+          report <- subset(actions, Action %in% c("OK", "FLAG"))
+          invals <- subset(actions, Action %in% c("INVALID", "INVALID2", "INVALID3"))
+          timechanges <- subset(actions, Action == "TIMECHANGE")
+          
+     
+     ############################################################################ 
+     ####################### READ DATA TO CORRECT ###############################
+     ############################################################################
+     
+          dat <- read.csv(paste("Data/Captures/S", season, "_captures.csv", sep = "")) 
+          names(dat) <- c("season", "site", "roll", "capture", "image", "path", "timestamp")
+          dat$sr <- paste(dat$site, dat$roll, sep = "_R")
+          dat$invalid <- 0     
+
+     
+     ############################################################################ 
+     ############################ FIX INVALIDS ##################################
+     ############################################################################
+          
+          action <- invals
+          
+          ## for whole rolls
+          setInvAll <- action$sr[action$Action == "INVALID" & action$First.Last.All == "ALL"]
+          setInv2All <- action$sr[action$Action == "INVALID2" & action$First.Last.All == "ALL"]
+          setInv3All <- action$sr[action$Action == "INVALID3" & action$First.Last.All == "ALL"]
+     
+          ## clean the whole rolls
+               dat$invalid[dat$sr %in% setInvAll] <- 1
+               dat$invalid[dat$sr %in% setInv2All] <- 2
+               dat$invalid[dat$sr %in% setInv3All] <- 3
+     
+          if(length(setInvAll) > 0) print(paste("Rolls", setInvAll, "set to INVALID"))
+          if(length(setInv2All) > 0) print(paste("Rolls", setInv2All, "set to INVALID2"))
+          if(length(setInv3All) > 0) print(paste("Rolls", setInv2All, "set to INVALID3"))
+     
+          ## for partials - easier just to loop
+          partials <- subset(action, First.Last.All != "ALL")
+  
+          for (i in 1:length(partials$sr)) {
+               sub <- partials[i,]
+               subdat <- dat[dat$sr == partials$sr[i],]
+               subdat$imname <- substr(x=subdat$path, 15, 36)
+               
+               ## assign start and end
+               if (sub$First.Last.All == "FIRST") {
+                    start <- min(row.names(subdat[subdat$capture == 1,]))
+                    end <- max(row.names(subdat[subdat$capture == 1,]))
+                    print("First")
+               } else if (sub$First.Last.All == "LAST"){
+                    lastcap <- subdat$capture[length(subdat$season)]
+                    start <- min(row.names(subdat[subdat$capture == lastcap,]))
+                    end <- max(row.names(subdat[subdat$capture == lastcap,]))
+                    print("Last")
+               } else if (sub$First.Last.All == "PARTIAL") {
+                    #start <- min(row.names(subdat[subdat$capture == sub$Cap.From,]))
+                    #end   <- max(row.names(subdat[subdat$capture == sub$Cap.To,]))
+                    start <- row.names(subdat[subdat$imname == sub$Imfrom,])
+                    end   <- row.names(subdat[subdat$imname == sub$Imto,])
+               }
+               print(paste("Roll", partials$sr[i], "from", start, "to", end, "made Invalid"))
+               # now change values in main df.
+               if (sub$Action == "INVALID"){
+                    dat$invalid[start:end] <- 1
+               } else if (sub$Action == "INVALID2"){
+                    dat$invalid[start:end] <- 2
+               } else if (sub$Action == "INVALID3"){
+                    dat$invalid[start:end] <- 3
+               } else stop("Invalid invalid code")
+          }
+          
+     ############################################################################ 
+     ########################### FIX TIMESTAMPS #################################
+     ############################################################################
+     dat$timez <- strptime(as.character(dat$timestamp), format = "%Y:%m:%d %H:%M:%S", tz = "Africa/Dar_es_Salaam")
+     dat$J <- julian(strptime(as.character(dat$timestamp), format = "%Y:%m:%d %H:%M:%S",tz="Africa/Dar_es_Salaam"))
+     
+     action <- timechanges
+     if(dim(action)[1]>0)  { 
+          ### change time diffs to posix formats
+          action$from <- strptime(action$DateFrom, format = "%m/%d/%Y %H:%M", tz="Africa/Dar_es_Salaam")
+          action$to <- strptime(action$DateTo, format = "%m/%d/%Y %H:%M", tz="Africa/Dar_es_Salaam")
+          action$dif <- action$to - action$from
+     
+          for (i in 1:length(action$sr)) {
+               sub <- action[i,]
+               subdat <- dat[dat$sr == action$sr[i],]
+               subdat$imname <- substr(x=subdat$path, 15, 36)
+               
+               ## assign start and end
+               if (sub$First.Last.All == "ALL"){
+                    start <- row.names(subdat[1,])
+                    end <- row.names(subdat[length(subdat$season),])
+               } else if (sub$First.Last.All == "FIRST") {
+                    start <- min(row.names(subdat[subdat$capture == 1,]))
+                    end <- max(row.names(subdat[subdat$capture == 1,]))
+                    
+               } else if (sub$First.Last.All == "LAST"){
+                    lastcap <- subdat$capture[length(subdat$season)]
+                    start <- min(row.names(subdat[subdat$capture == lastcap,]))
+                    end <- max(row.names(subdat[subdat$capture == lastcap,]))
+                    
+               } else if (sub$First.Last.All == "PARTIAL") {
+                    #start <- min(row.names(subdat[subdat$capture == sub$Cap.From,]))
+                    #end   <- max(row.names(subdat[subdat$capture == sub$Cap.To,]))
+                    start <- row.names(subdat[subdat$imname == sub$Imfrom,])
+                    end   <- row.names(subdat[subdat$imname == sub$Imto,])       
+               }
+               start <- as.numeric(start); end <- as.numeric(end)
+               print(paste("Timechange for", sub$sr, "from", start, "to", end))
+               # now change values in main df.
+               dat$timez[start:end] <- dat$timez[start:end] + sub$dif          
+          }
+     } 
+     write.csv(dat, paste("CleanedCaptures/S", season, "_cleaned.csv", sep = ""), row.names = F) 
+}
