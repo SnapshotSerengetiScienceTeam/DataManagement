@@ -1,0 +1,12 @@
+## Run cleaning scripts
+rm(list = ls())
+setwd("/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
+source("CleaningFunctions.R")
+
+# for (s in 6) {
+#      print(paste("Now cleaning season", s))
+#      CleanCaps(s)
+# }
+
+#CHANGE SEASON
+CleanCaps(8)
