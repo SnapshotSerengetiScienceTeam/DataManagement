@@ -1,0 +1,88 @@
+############################################################################################
+##### Now break it down. #####
+#############################################################################################
+
+setwd("C:/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
+
+## Choose your site ###
+season <- 8
+recheck = F
+
+###### pull in info ######
+
+#seasons <- read.csv("Data/seasons.csv")[,1:3]
+
+if (recheck == F){
+     dat <- read.csv(paste("Data/Captures/S", season, "_captures.csv", sep = ""))
+     names(dat) <- c("season", "site", "roll", "capture", "image", "path", "timestamp")
+     dat$sr <- paste(dat$site, dat$roll, sep = "_R")
+     dat$J <- julian(strptime(dat$timestamp, format = "%Y:%m:%d %H:%M:%S", tz="Africa/Dar_es_Salaam")) # ensure date is a DAT 
+     dat$timestamp <- strptime(dat$timestamp, format = "%Y:%m:%d %H:%M:%S", tz="Africa/Dar_es_Salaam")
+}
+
+if (recheck == T){
+     ts <- "timez"
+     dat <- read.csv(paste("Data/CleanedCaptures/S", season, "_cleaned.csv", sep = ""))
+     dat$J <- julian(strptime(dat$timez, format = "%Y-%m-%d %H:%M:%S", tz="Africa/Dar_es_Salaam")) # ensure date is a DAT 
+     dat$timestamp <- strptime(dat$timez, format = "%Y-%m-%d %H:%M:%S", tz="Africa/Dar_es_Salaam")
+}
+
+
+#####################
+#### chose roll #####
+#####################
+
+sr <- "J06_R3"
+r <- dat[dat$sr == sr,]
+
+#####################
+#####################
+
+summary(r)
+row.names(r) <- 1:dim(r)[1]
+
+r$lag <- 0
+r$lag[2:length(r$timestamp)] <- r$timestamp[2:length(r$timestamp)] - r$timestamp[1:length(r$timestamp)-1] 
+#calculate lag
+
+## take a quick look ##
+head(r, 20)
+tail(r, 20)
+
+print(paste(dim(r)[1], "Captures in", sr))
+
+## find major date issues
+r$imnum <- as.numeric(row.names(r))
+plot(r$timestamp, r$imnum, cex = .5)
+
+
+###################
+###################
+
+### locate a specific image in the file
+r[grep(pattern="IMAG0001",x=r$path),]
+r[r$capture %in% 1, ]
+
+
+# if you reverted back to 2009 or there are weird gaps in plot, subset and examine more closely.
+retro <- r[r$timestamp < strptime("2010-01-01", format = "%Y-%m-%d"),]
+plot(retro$timestamp, retro$imnum, cex = .5)
+print(paste(dim(retro)[1], "Captures before 2010"))
+future <- r[r$timestamp > strptime("2015-01-01", format = "%Y-%m-%d"),]
+print(paste(dim(future)[1], "Captures after 2015"))
+print(retro)
+
+hm <- r[r$timestamp > strptime("2013-11-01", format = "%Y-%m-%d"),]
+head(hm)
+tail(hm)
+
+# note any weirdnesses -- any negative lags? and what are they?
+plot(r$timestamp, r$lag)
+r[r$lag == max(r$lag),]
+r[r$lag < 0,]
+
+
+## look at photos before and after the reversion
+pt <- as.numeric(row.names(r[r$lag < 0,])) #note that because this is a subset, indices are off from rownames a bit
+r[row.names(r) %in% c((pt-2):(pt+2)),] #take 2 before and 2 after.
+
