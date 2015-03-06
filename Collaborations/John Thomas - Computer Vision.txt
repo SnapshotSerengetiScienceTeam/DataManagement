@@ -1,0 +1,16 @@
+John contacted Craig on Feb 11, 2015, with an interest in using the Snapshot Serengeti images for color research. In particular:
+
+"I'm currently working on big data color imaging algorithms involving a new appearance based color space. The results of this project enable searchable color in images and create a palette of "interesting" colors for each image."
+
+He is working with a retired professor, Dr. Ed Granger.
+
+The two appear to be for-profit entrepeneurial types. Linked In profiles are here:
+
+https://www.linkedin.com/pub/john-thomas/20/502/887 John Thomas
+https://www.linkedin.com/pub/ed-granger/2/351/941 Dr. Ed Granger, Ret. Professor RIT
+
+Margaret and Ali (and Alex at Zooniverse) retrieved for John a list of all URLs for SS images that are online S1-S8. 
+
+Last contact was March 1, 2015: 
+"Hi Margaret, Everything is in order and I’m able to parse the file and retrieve images.  This is a big help having images like these, thank you very much, again.  When I have some interesting results I’ll be happy to share them with you.  Thanks.  John"
+
