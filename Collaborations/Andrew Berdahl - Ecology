@@ -1,0 +1,58 @@
+30-Mar-2015
+
+Andrew Berdahl from the Santa Fe Institute heard about our work through Craig and is interested in using our data to study 
+
+wildebeest migrations. I am sending him environmental data (rainfall, NDVI, etc) and have extracted wildebeest movement data from 
+
+our snapshot dataset. I am having undergraduate students go through wildebeest pictures to get the direction animals are moving.
+
+
+On Wed, Mar 25, 2015 at 10:02 PM, Andrew Berdahl <berdahl@gmail.com> wrote:
+Hello Ali and Meredith,
+
+How do you do?
+
+My name is Andrew Berdahl and I am an Omidyar Fellow at the Santa Fe Institute. I mainly study collective behavior, especially 
+
+during migration and other navigational tasks but I am very interested in movement ecology in general (and other stuff too!). I 
+
+recently had an interesting conversation with Craig Packer while he was visiting SFI about wildebeest movement up environmental 
+
+gradients (grass greens, humidity, etc.) and the potential role of social cues in these processes. Craig suggested your 
+
+Zooniverse project, Snapshot Serengeti might hold some interesting data for digging into these questions a little deeper. 
+
+Specifically, he suggested that if you were able to query the database for all images containing wildebeests moving, then someone 
+
+(undergrads?) might be able to extract a coarse estimate of which direction they were heading. We could then correlate that with 
+
+NVDI, remote sensing weather data, or weather station data to look at what cues the animals might be using and over what scales 
+
+they (individually, or as a group) could sense them. If you are at all interested in this angle, I might have some undergrads 
+
+available over the summer to look through such images - though Craig mentioned you might have some already working with the 
+
+images, so perhaps they would be more suitable.
+
+No pressure at all, but if you find this interesting I would be happy to discuss it more.
+
+All the best,
+Andrew
+
+-------------------------------------------------------------------------------------------
+
+On Thu, Mar 26, 2015 at 7:40 AM, Meredith Palmer <palme516@umn.edu> wrote:
+Hi Andrew, 
+
+Nice to meet you! Craig told us to expect an email from you. I'd be happy to help out in any way I can. It would be fairly easy 
+
+to compile the information that you're interested in - I could send you a list of URLs for moving wildebeest pictures, monthly 
+
+NDVI for 2010-2014, rain gauge data, and an updated list of what direction each camera is facing. I also have a small hoard of 
+
+undergraduate volunteers (10-12) that I need to keep busy, so if you would like help extracting movement direction, I could have 
+
+people looking at that immediately. Let me know if this sounds good, and we can chat further. 
+
+Cheers, 
+Meredith 
