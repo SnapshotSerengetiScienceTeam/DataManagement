@@ -3,13 +3,6 @@
 rm(list = ls())
 setwd("/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
 source("FlaggingFunctions.R")
-seasons <- read.csv("Data/seasons.csv")[,1:3]
-
-
-# for (s in 4) {
-#      print(paste("Now Rechecking season", s))
-#      ReCheck(s)
-# }
 
 ##CHANGE SEASON! 
 ReCheck(8)
