@@ -1,12 +1,14 @@
 ## Run cleaning scripts
 rm(list = ls())
 setwd("/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
-source("CleaningFunctions.R")
+source("CleaningFunctions1.R")
 
-# for (s in 6) {
-#      print(paste("Now cleaning season", s))
-#      CleanCaps(s)
-# }
+#cleaning 
+CleanCaps1(8)
 
-#CHANGE SEASON
-CleanCaps(8)
+#final clean
+FinalClean(8)
+
+#check
+test <- read.csv("CleanedCaptures/S8_cleaned.csv")
+head(test)
