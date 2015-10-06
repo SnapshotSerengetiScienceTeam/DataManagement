@@ -1,0 +1,21 @@
+Instructions for creating an authentication file
+------------------------------------------------
+
+1. Make sure you have credentials to access the Snapshot Serengeti database. This will be your MSI username and likely a *different* password from your MSI one. To test to see if you have credentials, type:
+
+     mysql -h mysql.msi.umn.edu -p packerc_snapshot_serengeti
+
+If you do not get an error, then you have the credentials. Type 'quit' to exit in this case. If you do get an error, then you may not have the credentials. Email help@msi.umn.edu to get a username and password. In the email specify that you want access to the MySQL database packerc_snapshot_serengeti.
+
+2. Create a text file in /home/packerc/shared/metadata_db/scripts/auth_files named:
+
+     auth-YOURNAME.txt
+
+But replace YOURNAME with your name. For example: auth-margaret.txt
+
+3. This text file should consist of three lines. The first line should be your MSI user name. The second line should be your database password. The third line should be your full name written out (e.g. Margaret Kosmala).
+
+4. Change the permissions on the file so no one else can see it.
+
+     chmod 600 auth-YOURNAME.txt
+

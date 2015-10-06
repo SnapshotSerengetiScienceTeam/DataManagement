@@ -1,0 +1,14 @@
+Instructions for creating a season metadata file
+------------------------------------------------
+Each season in the database has some metadata associated with it. This metadata needs to be imported before any rolls, captures, or images can be associated with the season. 
+
+1. Navigate to /home/packerc/shared/metadata_db/metadata/seasons_files/
+
+2. Create a new text file called seasonXmeta.csv where X is replaced by the season number. For example:
+
+     season7meta.csv
+
+3. The text file should consist of one line with four fields separated by commas. The first field is the season number. The second is the approximate start date of that season. The third is the approximate stop date of that season. The fourth is a comments field for notes about the season (up to 500 characters). The second, third, and fourth fields should be contained in quotation marks. The dates should be in format YYYY-MM-DD. For example:
+
+     7,"2013-01-29","2013-11-23","Retrieved by Ali"
+

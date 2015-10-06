@@ -1,0 +1,33 @@
+Instructions for uploading metadata into the database
+-----------------------------------------------------
+
+1. Follow the instructions for preparing new images for Snapshot Serengeti 
+     (see TO BE WRITTEN)
+
+2. Create an authenication file if you haven't already
+     (see create_authentication_file.txt)
+
+3. Create a season file if you haven't already
+     (see create_season_metadata_file.txt)
+
+4. Create a working directory in /home/packerc/shared/metadata_db/scripts/logfiles/ 
+     Example:
+
+     cd /home/packerc/shared/metadata_db/scripts/logfiles/
+     mkdir S7_meta_upload
+
+5. Change directory to /home/packerc/shared/metadata_db/scripts
+
+6. Run the script: import_clean_season_metadata_into_database.py
+     Format:
+
+     import_clean_season_metadata_into_database.py <authentication file> <season file> <metadata file> <working dir>
+
+     Example:
+
+     ./import_clean_season_metadata_into_database.py ./auth_files/auth-margaret.txt ../metadata/seasons_files/season7meta.csv ../../TimeStampCleaning/CleanedCaptures/S7_cleaned.csv ./logfiles/S7_meta_upload/ > ./logfiles/S7_meta_upload/import_S7_log.txt &
+
+7. Calculate the roll up- and down-times for each roll. Run the script: setRollUpTimes.py
+     Example:
+
+     ./setRollUpTimes.py
