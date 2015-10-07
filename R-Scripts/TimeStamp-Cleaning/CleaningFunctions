@@ -18,7 +18,10 @@ CleanCaps1 <- function(season){
   invals <- subset(actions, Action %in% c("INVALID", "INVALID2", "INVALID3"))
   timechanges <- subset(actions, Action == "TIMECHANGE")
   
-  
+  #formatting for number of digits of season
+  x <- ifelse(nchar(season) == 1, 15, 16) 
+  y <- ifelse(nchar(season) == 1, 36, 38)
+
   ############################################################################ 
   ####################### READ DATA TO CORRECT ###############################
   ############################################################################
@@ -56,8 +59,7 @@ CleanCaps1 <- function(season){
   for (i in 1:length(partials$sr)) {
     sub <- partials[i,]
     subdat <- dat[dat$sr == partials$sr[i],]
-    #subdat$imname <- substr(x=subdat$path, 15, 22)
-    subdat$imname <- substr(subdat$path, 15, 36)
+    subdat$imname <- substr(subdat$path, x, y)
     
     ## assign start and end
     if (sub$First.Last.All == "FIRST") {
@@ -102,8 +104,7 @@ CleanCaps1 <- function(season){
     for (i in 1:length(action$sr)) {
       sub <- action[i,]
       subdat <- dat[dat$sr == action$sr[i],]
-      #subdat$imname <- substr(x=subdat$path, 15, 22)
-      subdat$imname <- substr(x=subdat$path, 15, 36)
+      subdat$imname <- substr(x=subdat$path, x, y)
       
       ## assign start and end
       if (sub$First.Last.All == "ALL"){
@@ -133,20 +134,3 @@ CleanCaps1 <- function(season){
   } 
   write.csv(dat, paste("CleanedCaptures/S", season, "_cleaned.csv", sep = ""), row.names = F) 
 }
-
-
-##format data corretly and output cleaned datafile
-
-FinalClean <- function(season){ 
-  
-  #setting output to same format as before
-  cleaned <- read.csv(paste("S",season,"_cleaned.csv",sep=""))
-  cleaned$J <- NULL; cleaned$timestamp <- NULL; cleaned$sr <- NULL
-  cleaned <- cleaned[,c(1,2,3,4,5,6,9,7,8)]
-  names(cleaned)[7] <- "newtime"
-  cleaned$include <- ifelse(cleaned$invalid == 1, 0, 1)
-  
-  write.csv(cleaned, paste("S",season,"_cleaned.csv",sep=""), row.names=F)
-}
-
-  
