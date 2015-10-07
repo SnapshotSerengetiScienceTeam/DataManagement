@@ -1,8 +1,11 @@
 rm(list = ls())
 
 setwd("C:/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
-source("FlaggingFunctions.R")
+source("Scripts/FlaggingFunctions.R")
 
-## insert Season Name into the MajorCheck function call.
+season <-         # enter season number i.e., 9, 10
+maxyear <-        # enter year that in or over data is considered suspicious future data i.e., 2016
+  
 
-MajorCheck(8)
+MajorCheck(season)
+
