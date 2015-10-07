@@ -1,0 +1,27 @@
+S10 CLEANING: 
+
+A & B rolls: 
+-T09_R2B: A new roll (starts with blackboard) rather than a subroll - changed "T09_R2B" to "T09_R3" 
+-S09_R2B: A new roll (starts with blackboard) rather than a subroll - changed "S09_R2B" to "S09_R3" 
+-R08_R2B: A new roll (starts with blackboard) rather than a subroll - changed "S09_R2B" to "S09_R3" **note: R2 missing -- but large date gap suggests should be 
+-Q07_R2B: A new roll (starts with blackboard) rather than a subroll - changed "Q07_R2B" to "Q07_R3" 
+-I03_R2B: A new roll (starts with blackboard) rather than a subroll - changed "I03_R2B" to "I03_R3" 
+-R12_R2: two interior directories, renamed with 0 and 1 and combined
+
+Movies
+- K10_R1: moved to "../shared/movies/S10/K10_R1"
+- N07_R3: moved to "../shared/movies/S10/K10_R1"
+
+Error file from "extract_date.py" script 
+- S10_N05_R1_IMAG0483.JPG: moved to "../shared/corrupt_images/S10"
+- S10_R08_R1_IMAG1662.JPG: moved to "../shared/corrupt_images/S10"
+- S10_R08_R1_IMAG1663.JPG: moved to "../shared/corrupt_images/S10"
+- S10_R08_R1_IMAG1675.JPG: moved to "../shared/corrupt_images/S10"
+- S10_R08_R1_IMAG1676.JPG: moved to "../shared/corrupt_images/S10"
+- S10_R08_R1_IMAG1681.JPG: moved to "../shared/corrupt_images/S10"
+- S10_R08_R1_IMAG1693.JPG: moved to "../shared/corrupt_images/S10"
+
+Error file from "set_up_captures.py" script
+- "Chronologic error in S10_G01_R2_IMAG0002.JPG: 2015-02-10 09:33:05 is before 2015-05-12 14:14:53": IMAG0001 (5/12/2015) is likely before time was reset on camera - first image of first capture event actually 0002. Deleted IMAG0001, renamed 0002-0475 to 0001-0474
+- "Chronologic error in S10_Q12_R1_IMAG0004.JPG: 2015-01-30 08:16:50 is before 2015-04-14 13:09:50":  ****DATE FOR IMAG0003 IS WRONG --- FIX MANUALLY IN ACTION LIST**** <- done 
+
