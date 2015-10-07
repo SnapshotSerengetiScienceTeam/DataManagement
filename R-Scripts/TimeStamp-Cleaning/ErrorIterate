@@ -2,7 +2,11 @@
 
 rm(list = ls())
 setwd("/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
-source("FlaggingFunctions.R")
+source("Scripts/FlaggingFunctions.R")
 
-##CHANGE SEASON! 
-ReCheck(8)
+##FILL IN
+season <-          #season number i.e., 9, 10
+maxyear <-         #year which dates in and beyond would be suspicious i.e., 2016
+
+
+ReCheck(season)
