@@ -1,0 +1,48 @@
+S9 CLEANING:
+
+A & B rolls: 
+-T12_R1B: A new roll (starts with blackboard) rather than a subroll - changed "T12_R1A" to "T12_R1" and "T12_R1B" to "T12_R2" 
+-T11_R1B: A new roll (starts with blackboard) rather than a subroll - changed "T11_R1A" to "T11_R1" and "T11_R1B" to "T11_R2" and "T11_R2" to "T11_R3" and "T11_R3" to "T11_R4" 
+-T10_R1B: A new roll (starts with blackboard) rather than a subroll - changed "T10_R1A" to "T10_R1" and "T10_R1B" to "T10_R2" and "T10_R2" to "T10_R3" and "T10_R3" to "T10_R4" 
+-S11_R1B: A new roll (starts with blackboard) rather than a subroll - changed "S11_R1A" to "S11_R1" and "S11_R1B" to "S11_R2" and "S11_R2" to "S11_R3" and "S11_R3" to "S11_R4" 
+-S10_R1B: A new roll (starts with blackboard) rather than a subroll - changed "S10_R1A" to "S10_R1" and "S10_R1B" to "S10_R2" and "S10_R2" to "S10_R3" and "S10_R3" to "S10_R4" 
+-S09_R1B: A new roll (starts with blackboard) rather than a subroll - changed "S09_R1A" to "S09_R1" and "S09_R1B" to "S09_R2"
+-R12_R1B: A new roll (starts with blackboard) rather than a subroll - changed "R12_R1A" to "R12_R1" and "R12_R1B" to "R12_R2" and "R12_R2" to "R12_R3" and "R12_R3" to "R12_R4" 
+-R09_R1B: A new roll (starts with blackboard) rather than a subroll - changed "R09_R1A" to "R09_R1" and "R09_R1B" to "R09_R2" and "R09_R2" to "R09_R3" and "R09_R3" to "R09_R4" 
+-Q11_R1B: A new roll (starts with blackboard) rather than a subroll - changed "Q11_R1A" to "Q11_R1" and "Q11_R1B" to "Q11_R2" and "Q11_R2" to "Q11_R3" and "Q11_R3" to "Q11_R4"
+-P13_R1B: A new roll (starts with blackboard) rather than a subroll - changed "P13_R1A" to "P13_R1" and "P13_R1B" to "P13_R2" and "P13_R2" to "P13_R3"
+-P12_R1B: A new roll (starts with blackboard) rather than a subroll - changed "P12_R1A" to "P12_R1" and "P12_R1B" to "P12_R2" and "P12_R2" to "P12_R3"
+-O11_R1B: A new roll (starts with blackboard) rather than a subroll - changed "O11_R1A" to "O11_R1" and "O11_R1B" to "O11_R2" and "O11_R2" to "O11_R3"
+-O07_R1B: A new roll (starts with blackboard) rather than a subroll - changed "O07_R1A" to "O07_R1" and "O07_R1B" to "O07_R2" and "O07_R2" to "O07_R3" and "O07_R3" to "O07_R4"
+-M06_R1B: A new roll (starts with blackboard) rather than a subroll - changed "M06_R1A" to "M06_R1" and "M06_R1B" to "M06_R2" and "M06_R2" to "M06_R3" and "M06_R3" to "M06_R4"
+-M05_R1B: A new roll (starts with blackboard) rather than a subroll - changed "M05_R1A" to "M05_R1" and "M05_R1B" to "M05_R2" and "M05_R2" to "M05_R3"
+-E11_R2A & E11_R2B: Made image code 5 digits and combined 
+
+Movies
+- D12_R1_IMAG0007:8, 11:23, 25:55, 58:59: moved to "../shared/movies/S9/D12_R1"
+- D12_R2_IMAG1083:1084, 1088:1098: moved to "../shared/movies/S9/D12_R2" 
+- D12_R3_IMAG0040:412, 1153:1388, 1797:1846: moved to "../shared/movies/S9/D12_R3"
+- H13_R3_IMAG0004:6, 12:34, 39:42, 46:54, 56:58, 60:219, 226:318: moved to "../shared/movies/S9/H13_R3" 
+- K10_R1_IMAG1036, 1198: moved to "../shared/movies/S9/K10_R1"
+- K10_R2_IMAG0038:49, 64:78, 81:89, 91:113, 116:126, 130:137, 139:146, 150:178, 180:197, 199:239, 241:243, 247:251, 254:255, 258:265, 271:275, 278:291, 300:310, 315:339, 343:382, 398:412, 419:431, 487:587, 589:637, 639:656, 672:697, 711:723, 727:740, 742:750, 753:761, 765:787, 793:832, 835:852, 854:867, 869:894, 897:901, 909:923, 928:938, 945:957, 959:977, 979:1033, 1038:1040, 1043
+- Q10_R3_IMAG7049:7255: moved to "../shared/movies/S9/Q10_R3"
+- S12_R1_IMAG1278:1292: moved to "../shared/movies/S9/S12_R1" 
+
+Error file from "extract_date.py" script 
+- S9_B10_R2_IMAG2169.JPG: moved to "../shared/corrupt_images/S9"
+- S9_B10_R2_IMAG2271.JPG: moved to "../shared/corrupt_images/S9"
+- S9_D08_R3_IMAG0544.JPG: moved to "../shared/corrupt_images/S9"
+- S9_D08_R3_IMAG0545.JPG: moved to "../shared/corrupt_images/S9"
+- S9_D08_R3_IMAG1919.JPG: moved to "../shared/corrupt_images/S9"
+- S9_E06_R3_IMAG0406.JPG: moved to "../shared/corrupt_images/S9"
+- S9_E06_R3_IMAG0407.JPG: moved to "../shared/corrupt_images/S9"
+- S9_E06_R3_IMAG0408.JPG: moved to "../shared/corrupt_images/S9"
+- S9_I03_R3_IMAG4711.JPG: moved to "../shared/corrupt_images/S9"
+- S9_I03_R3_IMAG4712.JPG: moved to "../shared/corrupt_images/S9"
+- S9_K12_R2_IMAG2933.JPG: moved to "../shared/corrupt_images/S9"
+
+Error file from "set_up_captures.py" script
+- "Chronologic error in S9_G01_R1_P1110003.JPG: 2014-05-12 08:54:46 is before 2014-06-16 08:50:05": Three "P" images are the blackboard before the "IMAG" images, but are sorted to end -- renamed to be IMAG0001, IMAG0002, IMAG0003 and then renamed all other files +3 so that order is maintained 
+- "Chronologic error in S9_H04_R3_P1170182.JPG: 2014-11-07 07:36:10 is before 2014-11-22 14:20:21": First three "IMAG"s blanks -- the "P" images are first three of roll, followed by IMAG0004, 5, etc. Deleted blanks and renamed "P"s as IMAG0001, 0002, 0003
+- "Chromologic error in S9_J07_R2_IMAG0002.JPG: 2014-09-06 09:09:24 is before 2015-09-06 09:04:16": IMAG0001 (2015) is likely before time was reset on camera - first image of first capture event actually 0002. Deleted IMAG0001, renamed 0002-0108 to 0001-0107
+- "Chronologic error in S9_O13_R2_IMAG0002.JPG: 2014-09-19 10:11:26 is before 2014-09-19 10:14:30": IMAG0001 (10:14) is likely before time was reset on camera - first image of first capture event actually 0002. Deleted IMAG0001, renamed 0002-0708 to 0001-0707
