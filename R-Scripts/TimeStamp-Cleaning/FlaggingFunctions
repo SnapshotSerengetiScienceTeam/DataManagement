@@ -2,125 +2,126 @@ library(plyr)
 
 #### Rolls with Bad Captures ####
 RollswBadCaps <- function(y=dat){
-     # do you have any captures with too many images?
-     bad.ce <- subset(aggregate(image ~ sr, data = y, FUN = max), image > 3)
+  # do you have any captures with too many images?
+  bad.ce <- subset(aggregate(image ~ sr, data = y, FUN = max), image > 3)
 } 
 
 
 #### Bad Caps #####    
 BadCaps <- function(y=dat, outpath, sx){
-     sub <- subset(y, image > 3, select = -c(timestamp, timez))
-     badcap <- subset(aggregate(image ~ capture + sr, data = y, FUN = max), image > 3)
-     if(dim(badcap)[1] > 0) {
-          bad.ce.file <- badcap   
-          write.csv(bad.ce.file, paste(outpath, sx, "BadCaps.csv", sep = "")) 
-     } else bad.ce.file <- paste("Season", sx, "has no bad captures.")
-     print(bad.ce.file)
+  sub <- subset(y, image > 3, select = -c(timestamp, timez))
+  badcap <- subset(aggregate(image ~ capture + sr, data = y, FUN = max), image > 3)
+  
+  if(dim(badcap)[1] > 0) {
+    bad.ce.file <- badcap   
+    write.csv(bad.ce.file, paste(outpath, sx, "BadCaps.csv", sep = "")) 
+  } else bad.ce.file <- paste("Season", sx, "has no bad captures.")
+    print(bad.ce.file)
 }
 
 ##### Time Checks #####
-
 TimeMachine <- function(y=dat, sx, outpath) {
-     ## Calculate lag
-          y <- y[order(y$site, y$roll, y$ts),]
-          y$samesite <- c(T, y$sr[1:length(y$sr)-1] == y$sr[2:length(y$sr)]) # new site?
-          y$lag <- 0
-          y$lag[2:length(y$J)] <- y$J[2:length(y$J)] - y$J[1:length(y$J)-1] #calculate lag
-          y$lag[y$samesite == FALSE] <- 0
+  #formatting for number of digits of season
+  m <- ifelse(nchar(season) == 1, 15, 16) 
+  p <- ifelse(nchar(season) == 1, 36, 38)
+  
+  ## Calculate lag
+  y <- y[order(y$site, y$roll, y$ts),]
+  y$samesite <- c(T, y$sr[1:length(y$sr)-1] == y$sr[2:length(y$sr)]) # new site?
+  y$lag <- 0
+  y$lag[2:length(y$J)] <- y$J[2:length(y$J)] - y$J[1:length(y$J)-1] #calculate lag
+  y$lag[y$samesite == FALSE] <- 0
           
-     y <- subset(y, select = -c(J, samesite)) #dataframe with lags
-     if( dim(y[y$lag < 0,])[1] >0)  write.csv(y[y$lag < 0,], paste(outpath, sx, "Reverted.csv", sep = ""))   
-     if( dim(y[y$lag >30,])[1] >0)  write.csv(y[y$lag > 30,], paste(outpath, sx, "Leaps.csv", sep = "")) 
+  y <- subset(y, select = -c(J, samesite)) #dataframe with lags
+  if( dim(y[y$lag < 0,])[1] >0)  write.csv(y[y$lag < 0,], paste(outpath, sx, "Reverted.csv", sep = ""))   
+  if( dim(y[y$lag >30,])[1] >0)  write.csv(y[y$lag > 30,], paste(outpath, sx, "Leaps.csv", sep = "")) 
      
-
-     lagdf <-  subset(y, lag > 30 | lag <0 )
-          lagdf$error[lagdf$lag < 0] <- "revert"
-          lagdf$error[lagdf$lag > 30] <- "leap"
-     #if(dim(lagdf)[1]== 0) print("There are no lag errors.")
-     lagdf <- ddply(lagdf, .(season, site, roll, sr, error), summarize, numpix=length(error), first = first(substr(path,15,36)))
-     #return(lagdf)
+  lagdf <-  subset(y, lag > 30 | lag <0 )
+      lagdf$error[lagdf$lag < 0] <- "revert"
+      lagdf$error[lagdf$lag > 30] <- "leap"
+  #if(dim(lagdf)[1]== 0) print("There are no lag errors.")
+  lagdf <- ddply(lagdf, .(season, site, roll, sr, error), summarize, numpix=length(error), first = first(substr(path,m,p)))
+  #return(lagdf)
 }
 
 first <- function(x) x[1]
 last <- function(x) x[length(x)]
 
 CalendarCheck <- function(y=dat, sx, outpath){
-     bc <- julian(strptime("2010-01-01", format = "%Y-%m-%d"))
-     ad <- julian(strptime("2015-01-01", format = "%Y-%m-%d"))
-     toosoon <- y[y$J < bc,] # all images with < 2010 timestamps
-     toolate <- y[y$J > ad,] # all images with > 2015 timestamps
-     if(dim(toosoon)[1] >0) write.csv(toosoon, paste(outpath, sx, "toosoon.csv", sep = "")) 
-     if(dim(toolate)[1] >0) write.csv(toolate, paste(outpath, sx, "toolate.csv", sep = "")) 
-     badcals <- subset(y, J > ad | J <bc)
-     if(dim(badcals)[1] == 0) {
-          print("There are no calendar errors")
-          cal <- data.frame()
-     } else {
-          cal <- ddply(subset(y, J > ad | J <bc), .(season, site, roll, sr), summarize, 
-                       "numpix"=length(path),
-                       "first" = first(substr(path,15,36)))
-          cal$error <- "baddate"
-          cal <- cal[, c("season", "site", "roll", "sr", "error", "numpix", "first")]
-     }  
-     return(cal)
+  #formatting for number of digits of season
+  m <- ifelse(nchar(season) == 1, 15, 16) 
+  p <- ifelse(nchar(season) == 1, 36, 38)
+  
+  bc <- julian(strptime("2010-01-01", format = "%Y-%m-%d"))
+  max <- paste(maxyear,"-01-01",sep=)
+  ad <- julian(strptime(max, format = "%Y-%m-%d"))
+  toosoon <- y[y$J < bc,] # all images with < 2010 timestamps
+  toolate <- y[y$J > ad,] # all images with > 2015 timestamps
+  if(dim(toosoon)[1] >0) write.csv(toosoon, paste(outpath, sx, "toosoon.csv", sep = "")) 
+  if(dim(toolate)[1] >0) write.csv(toolate, paste(outpath, sx, "toolate.csv", sep = "")) 
+  badcals <- subset(y, J > ad | J <bc)
+  if(dim(badcals)[1] == 0) {
+    print("There are no calendar errors")
+    cal <- data.frame()
+  } else {
+    cal <- ddply(subset(y, J > ad | J <bc), .(season, site, roll, sr), summarize, "numpix"=length(path), "first" = first(substr(path,m,p)))
+    cal$error <- "baddate"
+    cal <- cal[, c("season", "site", "roll", "sr", "error", "numpix", "first")]
+  }  
+  return(cal)
 }
 
 
 MergeErrors <- function(lagdf, badcal, sx, outpath) {
-     if(dim(lagdf)[1] == 0 & dim(badcal)[1]>0) {
-          rollerrors <- badcal
-     } else if(dim(lagdf)[1] > 0 & dim(badcal)[1] == 0) {
-          rollerrors <- lagdf    
-     } else if(dim(lagdf)[1] == 0 & dim(badcal)[1] == 0) {
-          print("Congratulations! There are no calendar or timelag errors left in your dataset")
-          rollerrors <- "Congratulations! There are no calendar or timelag errors left in your dataset"
-     } else if(dim(lagdf)[1] > 0 & dim(badcal)[1] > 0) {
-          if(any(names(lagdf) != names(badcal))) stop("Your data frames are mismatched!")
-          rollerrors <-rbind(lagdf, badcal)
-     }
-     write.csv(rollerrors, paste(outpath, sx, "RollSummary.csv", sep = "")) 
-     return(rollerrors)
+  if(dim(lagdf)[1] == 0 & dim(badcal)[1]>0) {
+      rollerrors <- badcal
+  } else if(dim(lagdf)[1] > 0 & dim(badcal)[1] == 0) {
+      rollerrors <- lagdf    
+  } else if(dim(lagdf)[1] == 0 & dim(badcal)[1] == 0) {
+      print("Congratulations! There are no calendar or timelag errors left in your dataset")        rollerrors <- "Congratulations! There are no calendar or timelag errors left in your dataset"
+  } else if(dim(lagdf)[1] > 0 & dim(badcal)[1] > 0) {
+      if(any(names(lagdf) != names(badcal))) stop("Your data frames are mismatched!")
+      rollerrors <-rbind(lagdf, badcal)
+  }
+  write.csv(rollerrors, paste(outpath, sx, "RollSummary.csv", sep = "")) 
+  return(rollerrors)
 }
 
 MajorCheck <- function(season){
-     # pull in data to check
-          inpath = paste("Data/Captures/S", season, "_captures.csv", sep = "")
-          outpath = "Data/GenFlag/S"
-          
-          dat <- read.csv(inpath)
-          names(dat) <- c("season", "site", "roll", "capture", "image", "path", "timestamp")
-          dat$sr <- paste(dat$site, dat$roll, sep = "_R")
-          dat$ts <- dat$timestamp
-          dat$J <- julian(strptime(dat$ts, format = "%Y:%m:%d %H:%M:%S",tz="Africa/Nairobi")) # ensure datetime ignore dst 
-          #seasons <- read.csv("Data/seasons.csv")[,1:3]
-               
-     lagdf <- TimeMachine(dat, sx = season, outpath) #finds season value in   
-     badcal <- CalendarCheck(dat, sx = season, outpath)   
-     merged <- MergeErrors(lagdf, badcal, sx = season, outpath)   
-     print("Your Roll Summary:")
-     print(merged)
-     return(merged)
+  # pull in data to check
+  inpath = paste("Data/Captures/S", season, "_captures.csv", sep = "")
+  outpath = "Data/GenFlag/S"
+        
+  dat <- read.csv(inpath)
+  names(dat) <- c("season", "site", "roll", "capture", "image", "path", "timestamp")
+  dat$sr <- paste(dat$site, dat$roll, sep = "_R")
+  dat$ts <- dat$timestamp
+  dat$J <- julian(strptime(dat$ts, format = "%Y:%m:%d %H:%M:%S",tz="Africa/Nairobi"))              
+  lagdf <- TimeMachine(dat, sx = season, outpath) #finds season value in   
+  badcal <- CalendarCheck(dat, sx = season, outpath)   
+  merged <- MergeErrors(lagdf, badcal, sx = season, outpath)   
+  print("Your Roll Summary:")
+  print(merged)
+  return(merged)
 }
 
 ReCheck <- function(season){
-     # pull in data to check
-          inpath = paste("CleanedCaptures/S", season, "_cleaned.csv", sep ="")
-          outpath = "Data/Flagging2ndPass/S"
-          dat <- read.csv(inpath) 
-          dat <- subset(dat, invalid == 0)
-          dat$ts <- dat$timez
-          
-          dat$J <- julian(strptime(dat$ts, format = "%Y-%m-%d %H:%M:%S",tz="Africa/Nairobi")) # ensure datetime ignore dst         
-          #seasons <- read.csv("Data/seasons.csv")[,1:3]
-          
-     lagdf <- TimeMachine(dat, sx = season, outpath) #finds season value in 
-     badcal <- CalendarCheck(dat, sx = season, outpath)
-     merged <- MergeErrors(lagdf, badcal, sx = season, outpath)
-     rolls.w.badcaps <- RollswBadCaps(dat)
-     badcaps <- BadCaps(dat, outpath, sx = season)
-     print("Your Roll Summary:")
-     print(merged)
-     print("Rolls with badcaps")
-     print(rolls.w.badcaps)
-     return(merged)
+  # pull in data to check
+  inpath = paste("CleanedCaptures/S", season, "_cleaned.csv", sep ="")
+  outpath = "Data/Flagging2ndPass/S"
+  dat <- read.csv(inpath) 
+  dat <- subset(dat, invalid == 0)
+  dat$ts <- dat$timez
+  dat$J <- julian(strptime(dat$ts, format = "%Y-%m-%d %H:%M:%S",tz="Africa/Nairobi"))        
+  
+  lagdf <- TimeMachine(dat, sx = season, outpath) #finds season value in 
+  badcal <- CalendarCheck(dat, sx = season, outpath)
+  merged <- MergeErrors(lagdf, badcal, sx = season, outpath)
+  rolls.w.badcaps <- RollswBadCaps(dat)
+  badcaps <- BadCaps(dat, outpath, sx = season)
+  print("Your Roll Summary:")
+  print(merged)
+  print("Rolls with badcaps")
+  print(rolls.w.badcaps)
+  return(merged)
 }
