@@ -1,14 +1,26 @@
 ## Run cleaning scripts
 rm(list = ls())
 setwd("/Users/Meredith/Desktop/Grad School/Lions/CT_Cleaning")
-source("CleaningFunctions1.R")
+source("Scripts/CleaningFunctions.R")
 
-#cleaning 
-CleanCaps1(8)
+##FILL IN
+season <- 9         #season number i.e., 9, 10
 
-#final clean
-FinalClean(8)
 
-#check
-test <- read.csv("CleanedCaptures/S8_cleaned.csv")
-head(test)
+## Cleaning
+CleanCaps1(season)
+
+#manual fixes
+tofix <- read.csv(paste("CleanedCaptures/S", season, "_cleaned.csv", sep=""))
+head(tofix)
+
+sub <- tofix[tofix$site == "B04" & tofix$roll == 1,]
+path <- "S9/Q12/Q12_R1/S9_Q12_R1_IMAG0003.JPG"
+tofix[tofix$path == path,]
+tofix[524410:524412,]$image <- 1:3
+tofix[524410:524412,]$capture <- 1228
+tofix[524413:524616,]$capture <- tofix[524413:524616,]$capture + 1 
+
+write.csv(tofix, paste("CleanedCaptures/S", season, "_cleaned.csv", sep="")  
+
+
