@@ -1,0 +1,61 @@
+### Cleaning a New Season ###
+
+# On MSI, compare number of files between the hard drive and MSI to make sure that all files have transferred over 
+cd /shared/scripts/
+./count_files.py ../SX/ > files_in_SX.txt
+
+# Extract date-times
+./extract_date.py SeasonX /home/packerc/shared/SX/
+
+# Check date-times error list
+# - fix what can
+# - move videos to a seperate folder
+# - move corrupt files to a separate folder
+
+# Re-run extract date-times 
+
+# Extract captures 
+./set_up_captures.py 8 Season8_date_times.csv S8_captures.csv
+<script> <season as number> <output from date-times> <new output file>
+
+# Manually clean up captures as necessary 
+
+# Now, switch to R
+
+#### NOTE: IN NEXT SEASON, FOR CAPTURE EVENTS WITH EXTRA IMAGES THAT ARE INVALID, CALL INVALID IMAGES INVALID 0 AND THE REST VALID; THEN, RENUMBER ALL INVALID0 IMAGES SO HAVE UNIQUE NUMBER 
+
+# All scripts (+ Ali's protocol) on MSI in "TimeStamps" directory 
+
+# Save all SX_captures.csv to the Data/Capture directory (or manually change directory structure) 
+
+# Run ErrorChecking.R 
+
+# Save the roll summary as SXActions.csv in the ActionLists directory
+
+# Aad column headings in the same format as previous action lists (Action, First/Last/All, Imfrom, Imto, Cap From, Cap To, DateFrom, DateTo, Diff, Comment)
+
+# Use interactive code in CheckIndivRoll.R to assess issues with each roll and identify actions: 
+	INVALID (get rid of forever)
+	INVALID2 (maybe with extensive checking of field notes, could be salvageable)
+	INVALID3 (checked the field notes, the hours can't be corrected and thus can't be used for temporal data, but could maybe be used for non-temporal data)
+	TIMECHANGE (will correct time)
+	OK
+	FLAG (keep an eye on for some reason)
+	ADDRESSED (error taken care of somewhere else in the Action List)
+# Roll subsets are: ALL, FIRST, LAST, and PARTIAL; this cannot be blank
+# Note that no fixes are run on rolls marked as OK, FLAG, ADDRESSED 
+
+# Save Action List and run Cleaning.R
+
+# Run ErrorIterate.R
+# This also checks for bad captures; check to see if the errors need addressing; add anything to the SXActionList
+
+# Rerun ErrorIterate.R as necessary until no errors (that need fixing) remain
+
+# Go to Access database, extract all of records where field assistants entered that they changed times (TimeFrom, TimeTo); calculate dif in times (only need to deal with ones that are more than 20-30 mins off); figure out which rolls belong to by matching up dates; won't be clear *when* times went bad -- used CheckIndivRoll.R to see if you can see any weird lags or leaps; go through actual photos to see if you can pinpoint any switches
+# Once you've figured out what needs to happen with these, add to the Action List, then rerun Cleaning.R and ErrorIterate.R
+
+# Look for captures with multiple images and figure out why 
+# Look for night captures with no flash
+
+# Clean up final output by running FinalClean.R (also for any manual fixes -- save notes of manual fixes on MSI & GitHub)
