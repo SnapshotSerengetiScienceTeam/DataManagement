@@ -1,0 +1,62 @@
+Manual fixes for S8
+
+S07_R2: capture event 83 has 12 images which are actually four seperate capture events 
+- manually split into own CEs; subsequent CEs assigned INVALID3 
+
+L02_R2: (see action list)
+- set first capture to INVALID1 
+
+L06_R2: IMAG2223 is 4th image in CE & also misfire
+- set IMAG2223 to INVALID1 
+
+E13_R2: IMAG1539 is 2 capture events stuck together
+- separated and gave each own CE# 
+
+L10_R1: (see action list -- timestamp issues) + many "stuck" CEs with multiple images that are actually multiple CEs 
+- all images set to INVALID3 
+- break CE 60 into multiple CEs
+- break CE 65 into multiple CEs   
+- starting at IMAG0235, break up CE into multiple CEs
+- starting at IMAG0361, break up CE into multiple CEs
+- starting at IMAG0686, break up CE into multiple CEs
+- starting at IMAG3360, break up CE into multiple CEs
+- starting at IMAG3375, break up CE into multiple CEs
+- starting at IMAG3392, break up CE into multiple CEs
+- INDVALID1 a bunch of bad caps
+-- IMAG0838:0868 
+-- IMAG0962:1057
+-- IMAG1247:1347
+-- IMAG1648:1721
+-- IMAG2035:2118
+-- IMAG2423:2440
+-- IMAG2456:2485
+-- IMAG2742:2758
+-- IMAG2762:2796
+-- IMAG2920:2931 
+-- IMAG3071:2088
+-- IMAG3142:3157
+-- IMAG3197:3204
+-- IMAG3223:3228
+-- IMAG3485:3490
+
+L10_R2: (see action list)
+- all images > 0014 set to INVALID3 
+- INVALID 1 a bunch of bad caps
+-- IMAG0014
+-- IMAG0331 
+-- IMAG0332
+-- IMAG0336
+- starting at IMAG0109, break up CE into multiple CEs
+- starting at IMAG0341, break up CE into multiple CEs
+
+L10_R3: (see action list)
+- all images > 0015 set to INVALID3 
+- INVALID1 a bunch of bad caps
+-- IMAG0291:0293
+-- IMAG0298-0328 
+-- IMAG0391-0393
+-- IMAG0499-0507
+-- IMAG0565-0593
+-- IMAG0658
+-- IMAG0734-0736
+-- IMAG0926-0928
