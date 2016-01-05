@@ -18,7 +18,10 @@ Instructions for uploading metadata into the database
 
 5. Change directory to /home/packerc/shared/metadata_db/scripts
 
-6. Run the script: import_clean_season_metadata_into_database.py
+6. Back up the database! 
+     (see back_up_the_database.txt)
+
+7. Run the script: import_clean_season_metadata_into_database.py
      Format:
 
      import_clean_season_metadata_into_database.py <authentication file> <season file> <metadata file> <working dir>
@@ -27,7 +30,7 @@ Instructions for uploading metadata into the database
 
      ./import_clean_season_metadata_into_database.py ./auth_files/auth-margaret.txt ../metadata/seasons_files/season7meta.csv ../../TimeStampCleaning/CleanedCaptures/S7_cleaned.csv ./logfiles/S7_meta_upload/ > ./logfiles/S7_meta_upload/import_S7_log.txt &
 
-7. Calculate the roll up- and down-times for each roll. Run the script: setRollUpTimes.py
+8. Calculate the roll up- and down-times for each roll. Run the script: setRollUpTimes.py
      Example:
 
      ./setRollUpTimes.py
