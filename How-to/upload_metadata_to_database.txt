@@ -2,7 +2,7 @@ Instructions for uploading metadata into the database
 -----------------------------------------------------
 
 1. Follow the instructions for preparing new images for Snapshot Serengeti 
-     (see TO BE WRITTEN)
+     (see clean_the_data.txt)
 
 2. Create an authenication file if you haven't already
      (see create_authentication_file.txt)
