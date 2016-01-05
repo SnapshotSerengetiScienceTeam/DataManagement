@@ -10,16 +10,16 @@ Instructions for uploading metadata into the database
 3. Create a season file if you haven't already
      (see create_season_metadata_file.txt)
 
-4. Create a working directory in /home/packerc/shared/metadata_db/scripts/logfiles/ 
+4. Back up the database! 
+     (see back_up_the_database.txt)
+
+5. Create a working directory in /home/packerc/shared/metadata_db/scripts/logfiles/ 
      Example:
 
      cd /home/packerc/shared/metadata_db/scripts/logfiles/
      mkdir S7_meta_upload
 
-5. Change directory to /home/packerc/shared/metadata_db/scripts
-
-6. Back up the database! 
-     (see back_up_the_database.txt)
+6. Change directory to /home/packerc/shared/metadata_db/scripts
 
 7. Run the script: import_clean_season_metadata_into_database.py
      Format:
