@@ -66,6 +66,8 @@ Instructions for uploading Zooniverse classifications into the database
 
 ------------------------------------------------
 
+****** Script needs modificaiton. See issue #65 **********
+
 5. Run the script to calculate the consensus vote for each subject. This script performs the plurality algorithm to decide the consensus vote for each subject. It takes as input a file that has been cleaned (step 3 above) and outputs the consensus vote for each subject -- one row per subject and consensus species. Included are measures of certainty and other statistics. In particular, it does the following:
    (1) For each subject, blanks are removed (and counted) and the 
        median number of species identified per classification                      (rounded up) is taken as the consensus number of species in 
@@ -198,7 +200,7 @@ It may be necessary to hand-edit the output file and/or hand-edit a previous inp
 
 ------------------------------------------------
 
-***** WAITING ON CORY *****
+***** WAITING ON CORY - See issue #66 *****
 
 11. Transform the original classifications into a csv file that can be easily imported into the ZooniverseClassifications table of the database. This requires that all users have been properly imported into the Users table and that the Species table is up-to-date.
 
