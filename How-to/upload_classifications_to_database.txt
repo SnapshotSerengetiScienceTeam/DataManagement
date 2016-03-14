@@ -1,0 +1,278 @@
+Instructions for uploading Zooniverse classifications into the database
+--------------------------------------------------------------------------
+
+1A. Download a season's worth of classifications from Zooniverse and put the file in:
+     /home/packerc/shared/classifications_data/Zooniverse_downloads
+
+     File name should be snapshot_<season>.csv where <season> denotes the season (e.g. 'S7').
+
+ 
+1B. If you cannot download just one season, then you will need to extract the season you want to process. The script 'extract_season.py' will extract a single season from a Zooniverse dump file. It takes two arguments: the season (e.g. 'S7') and the file to be processed. The output is a file called 'snapshot_<season>.csv' where <season> is the season supplied as input. This script is located in /home/packerc/shared/scripts/
+
+------------------------------------------------
+
+2. Discard the tutorial classifications, as well as those for subjects that are ruled 'blank'. This script looks for all captures that retire for reason 'complete' or 'consensus' and move their classifications (including 'blank' ones) to a new file. The new file should be put in:
+     /home/packerc/shared/classifications_data/non-blank_captures
+     
+     Format: extract_non_empty_subjects.py <in-file> <out-file>
+
+     Example:
+
+     cd /home/packerc/shared/classifications_data/
+     ../scripts/extract_non_empty_subjects.py Zooniverse_downloads/snapshot_S7.csv non-blank_captures/snapshot_S7_non_empty.csv
+
+------------------------------------------------
+
+3. Run the clean-up script to clean up the resulting classifications. The script does two main things:
+
+     (1) Condenses classifications that need it. For example, if a user
+         specified 2 wildebeest standing and 1 wildebeest moving as
+         separate classifications for the same subject, this script
+         collapses those two classifications into a single
+         classification of 3 wildebeest standing and moving. 
+
+     (2) Anonymizes the user data. It calculates a hash code for each
+         user and substitutes this hash in the user column. This allows
+         us to share and make public the data without users being
+         identifiable. Not-loggged-in users are not anonymized as they
+         are already anonymous. (BUT SEE STEP 4)
+
+     The script takes as input a number representing the season number and an input file. It creates TWO output files. The first is called 'season_<number>.csv' and consists of the cleaned, anonymized data. If the script is run with an input file that has already had its blanks removed (step 2 above), then this file is the publishable raw product for this season, and can be published and shared. The second output file is a table of all the user-names and their associated hash codes. This table allows us to do look-ups on particular users. It should not be published or shared.
+
+     Format: prep_season.py <number> <in-file>
+
+     Move the output files to directories:
+     /home/packerc/shared/classifications_data/non-blank_classifications/
+     /home/packerc/shared/metadata_db/data/users/old/
+
+     Example:
+
+     ../scripts/prep_season.py 7 non-blank_captures/snapshot_S7_non_empty.csv
+     mv season_7.csv non-blank_classifications/
+     mv season_7_hashes.csv ../metadata_db/data/users/old/
+
+------------------------------------------------
+
+4. It turns out that Step 3 does not properly do hashes for all users. This is because it only runs on captures that didn't finish as 'blank' or 'blank_consensus'. That means that users that only did blank captures are not included in the output file. So in addition to running the script in Step 3, it is also necessary to run a script that accounts for all users. The hashes output from Step 3 should be ignored. Use the output from this script instead. This script takes as input the original Zooniverse file from Step 1.
+
+     Format: create_users_hash_table.py <in-file> <out-file>
+
+     Output files should be put in:
+     /home/packerc/shared/metadata_db/data/users/
+
+     Example:
+     cd /home/packerc/shared/
+     ./scripts/create_users_hash_table.py ./classifications_data/Zooniverse_downloads/snapshot_S7.csv ./metadata_db/data/users/S7_hashes_all_users.csv
+
+------------------------------------------------
+
+5. Run the script to calculate the consensus vote for each subject. This script performs the plurality algorithm to decide the consensus vote for each subject. It takes as input a file that has been cleaned (step 3 above) and outputs the consensus vote for each subject -- one row per subject and consensus species. Included are measures of certainty and other statistics. In particular, it does the following:
+   (1) For each subject, blanks are removed (and counted) and the 
+       median number of species identified per classification                      (rounded up) is taken as the consensus number of species in 
+       the subject/capture.
+   (2) For each subject, the species are sorted by the number of
+       votes received and the top consensus number of species are
+       selected as "winners". If there is a tie, then a species is
+       selected randomly from the tied species.
+   (3) The count of each winning species is determined as the median 
+       number (rounded up) of animals counted for each vote for that 
+       species. Minimums and maximums are also reported.
+   (4) For each winning species, the percentage of "true" votes is                    tallied from the votes for that species for'standing', 
+       'resting', 'moving', 'eating', 'interacting', and 'babies'.
+
+Metrics for each subject that are recorded are:
+   (1) The number of total classifications done
+   (2) The number of those that were blanks (i.e. "nothing here")
+   (3) The total number of votes cast, which is always greater than
+       or equal to the number of classifications minus the number of
+       blanks. 
+   (4) The Pielou evenness index, which is described here:
+       http://en.wikipedia.org/wiki/Species_evenness
+       Values range between zero and one, with low numbers having
+       more skew and high numbers being more even. The index is 
+       calculated on the non-blank votes for each subject. Thus,
+       low scores indicate  more certainty about the correctness of
+       the classification. In particular, a score of zero indicates
+       full consensus. Note that the Pielou evenness index does work
+       well on subjects containing more than one species.
+   (5) For each winning species, "species fractional support". This 
+       metric describes the number of classifiers who counted this
+       species. It is calculated as (number of votes for this species)
+       divided by (number of classifications - number of blanks). For
+       subjects with more than one species, this number gives a much
+       better sense of certainty than the Pielou evenness index. For 
+       example, consider a case where there is a zebra and a 
+       wildebeest, and each of 9 people identify them correctly, 
+       while one person only notes the zebra.The Pielou index would 
+       be 0.998, indicating almost complete evenness and wrongly 
+       suggesting low certainty. However, the "species fractional 
+       support" would be 1.0 for the zebra and 0.9 for the wildebeest,
+       indicating high certainty for both.
+   
+     Format: plurality_consensus.py <in-file> <out-file>
+
+Output directory should be:
+     /home/packerc/shared/metadata_db/data/consensus_classifications/
+
+     Example:
+
+     ../scripts/plurality_consensus.py non-blank_classifications/season_7.csv ../metadata_db/data/consensus_classifications/season_7_plurality.csv
+
+------------------------------------------------
+
+6. Tabulate the captures that were retired as 'blank' or 'blank_consensus'. The input is the original Zooniverse download from Step 1. 
+
+     Format: get_blank_captures.py <in-file> <out-file>
+
+The output should go in directory:
+     /home/packerc/shared/metadata_db/data/consensus_classifications/
+
+     Example:     
+
+     cd /home/packerc/shared/classifications_data/
+     ../scripts/get_blank_captures.py Zooniverse_downloads/snapshot_S7.csv ../metadata_db/data/consensus_classifications/season_7_blanks.csv
+
+------------------------------------------------
+
+7. BACKUP THE DATABASE. Up until here, all steps could be completed without touching the database. The next couple steps read the database, and the following ones write to it. For instructions on backing up the database, see Datamanagement/How-to/back-up-the-database.txt on GitHub.
+
+------------------------------------------------
+
+8. Compare the contents of the MSI database to the subjects that Zooniverse has created with Zooniverse IDs. First, export all the valid captures from the database for the given season.
+
+     Format: export-season.py <season_num> <out-file>
+ 
+     The script is in /home/packerc/shared/metadata_db/scripts/
+     The output should be put in metadata_db/data/link_to_zoon_id/
+
+     Example:
+
+     cd /home/packerc/shared/metadata_db/scripts/
+     ./export-season.py 7 ../data/link_to_zoon_id/S7_db_captures.csv
+
+Next, create a file containing all the unique subjects from the Zooniverse classifications file. 
+
+     Format: shapshot_capture_extract.py <in-file> <out-file>
+
+     The script is in /home/packerc/shared/scripts/
+     The output should be put in classifications_data/capture_to_ZoonID/
+
+     Example:
+  
+     cd /home/packerc/shared/classifications_data
+     ../scripts/shapshot_capture_extract.py ./Zooniverse_downloads/snapshot_S7.csv ./capture_to_ZoonID/snapshot_S7_unique_captures.csv
+
+Next, run the comparison script. It outputs two files: one that contains database idCaptureEvent numbers and Zooniverse IDs, and the other is an error file based on the output file name.
+
+     Format: compare_captures.py <database-file> <zooniverse-file> <out-file>
+
+     The script is in /home/packerc/shared/scripts/
+     The output should be put in metadata_db/data/link_to_zoon_id
+  
+     Example:
+
+     cd /home/packerc/shared/metadata_db/data/link_to_zoon_id
+     ../../../scripts/compare_captures.py ./S7_db_captures.csv ../../../classifications_data/capture_to_ZoonID/snapshot_S7_unique_captures.csv ./S7_links.csv
+
+Finally, and IMPORTANTLY, go through the error file and figure out the discrepancies between the database and the Zooniverse unique captures. These should be settled before importing data to the database. The error file will be in /home/packerc/shared/metadata_db/data/link_to_zoon_id and will end in "_err.txt". Example: S7_links.csv_err.txt
+It may be necessary to hand-edit the output file and/or hand-edit a previous input file and rerun scripts. Make sure to document what changes are made by hand.
+
+------------------------------------------------
+
+9. You backed up the database, right? Right? This is your last chance. Back it up NOW if you haven't already.
+
+------------------------------------------------
+
+****** DONE - DO NOT REDO FOR SEASON 7! ******
+
+10. Add users to the database.
+
+     Format: add-Users.py <user-hash-file>
+
+     Log info is sent to stdout and should be redirected to a log file
+
+     Example:
+
+     cd /home/packerc/shared/metadata_db/
+     ./scripts/add-Users.py ./data/users/S7_hashes_all_users.csv > ./data/users/upload_log_S7.txt
+
+------------------------------------------------
+
+***** WAITING ON CORY *****
+
+11. Transform the original classifications into a csv file that can be easily imported into the ZooniverseClassifications table of the database. This requires that all users have been properly imported into the Users table and that the Species table is up-to-date.
+
+     Format: transform-ZooniverseClassifications.py <in-file> <out-file>
+
+     Log info is sent to stdout and should be redirected to a log file.
+
+     Example:
+
+     cd /home/packerc/shared/metadata_db/
+     ./scripts/transform-ZooniverseClassifications.py ../classifications_data/Zooniverse_downloads/snapshot_S7.csv ./data/zoon_classifications/S7_trans.csv > ./data/zoon_classifications/log/log_S7.txt
+
+------------------------------------------------
+
+***** WAITING ON #11 *****
+
+12. Upload raw Zooniverse classifications to ZooniverseClassifications table. The input file is the one created in Step 11.
+
+[data in metadata_db/data/zoon_classifications/S7_trans.csv]
+
+------------------------------------------------
+
+****** DONE - DO NOT REDO FOR SEASON 7! ******
+
+13. Upload link file to CaptureEventsAndZooniverseIDs table. The link file to load is the one created in Step 8.
+
+     Format: load-Links <in-file>
+
+     Log info is sent to stdout and should be redirected to a log file
+
+     Example:
+
+     cd /home/packerc/shared/metadata_db/
+     ./scripts/load-Links.py ./data/link_to_zoon_id/S7_links.csv > ./data/link_to_zoon_id/upload_log_S7.txt
+
+------------------------------------------------
+
+****** WAITING ON #5 ******
+
+14. Upload classifications to ConsensusClassifications and ConsensusVotes tables. There are two scripts and two input files -- one with animal captures that was created in Step 5 and the other with blank captures that was created in Step 6.
+
+     Format: load-ConsensusClassifications.py
+     Format: load-ConsensusBlanks.py
+
+     Log info is sent to stdout and should be redirected to a log file
+
+     Example:
+
+     cd /home/packerc/shared/metadata_db/
+     ./scripts/load-ConsensusClassifications.py ./data/consensus_classifications/season_7_plurality.csv > ./data/consensus_classifications/upload_plurality_log_S7.txt
+     ./scripts/load-ConsensusBlanks.py ./data/consensus_classifications/season_7_blanks.csv > ./data/consensus_classifications/upload_blanks_log_S7.txt
+
+------------------------------------------------
+
+******** WAITING ON #14 ******
+
+15. Update the statuses of all captures for this season by changing the value of ZooniverseStatus in the CaptureEvents table. SQL queries will need to be written for this. 
+   A. Any capture that is linked to a Zooniverse identifier in the CaptureEventsAndZooniverseIDs table can be updated to status = 2
+   B. Any capture that now has a classification (blank or not) in the ConsensusClassifications table can be updated to status = 5
+   C. Look at each capture for this season that still have status = 1 or status = 2 and figure out why it hasn't processed. If, for example, the capture was never properly sent to Zooniverse to begin with, the status should be changed to 0. If it was sent and incorrectly processed at Zooniverse, the status should be changed to 6. If it's still processing at Zooniverse, the status might need to be changed to 3. 
+
+   An explanation of all Zooniverse status codes can be found in the ZooniverseStatuses table.
+     
+------------------------------------------------
+
+16. Do a quick summarization of consensus classifications for all non-blank images and send this to the researchers. They like this sort of thing. The input is the plurality output from Step 5.
+
+     Format: species_count.py <in-file> <out-file>
+
+     Example:
+
+     cd /home/packerc/shared/
+     ./scripts/species_count.py ./metadata_db/data/consensus_classifications/season_7_plurality.csv ./classifications_data/species_stats/season_7_stats.csv
+     
+------------------------------------------------
+
+END 
